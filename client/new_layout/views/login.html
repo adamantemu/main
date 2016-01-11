@@ -2,16 +2,17 @@
 	username: <input = "text" id = "username" ng-model = "username"><br>
 	password: <input = "text" id = "username" ng-model = "password"><br>
 	<button type = "submit" ng-click= "submit()">Login</button>
-</form>	
+</form>
  -->
+ {{data}}
 <form action = "/" id = "myLogin">
     <div class="form-group">
       <label>Username:</label>
-      <input type="text" class="form-control" ng-model = "username">
+      <input type="text" class="form-control" ng-model = "data.username">
     </div>
     <div class="form-group">
       <label>Password:</label>
-      <input type="password" class="form-control" ng-model = "password">
+      <input type="password" class="form-control" ng-model = "data.password">
     </div>
-    <button class="btn btn-primary" type = "submit" ng-click= "submit()">Login</button>
+    <a   ng-click= "submit()">Login</a>
   </form>

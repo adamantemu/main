@@ -11,14 +11,14 @@ app.config(function($routeProvider){
 			controller : 'registerCtrl'
 		})
 		.when('/post', {
-			// resolve : {
-			// 	"check" : function($location, $rootScope){
-			// 		if (!$rootScope.userId){
-			// 			$location.path("/");
-			// 		}
-			// 	}
-			// },		
-			templateUrl:'/views/post.html',	
+			resolve : {
+				"check" : function($location, $rootScope){
+					if (!$rootScope.userId){
+						$location.path("/");
+					}
+				}
+			},
+			templateUrl:'/views/post.html',
 			controller : 'postCtrl'
 		})
 		.when('/search', {
@@ -26,14 +26,14 @@ app.config(function($routeProvider){
 			controller : 'searchCtrl'
 		})
 		.when('/dashboard', {
-			// resolve : {
-			// 	"check" : function($location, $rootScope){
-			// 		if (!$rootScope.userId){
-			// 			console.log("no iD");
-			// 			$location.path("/");
-			// 		}
-			// 	}
-			// },			
+			resolve : {
+				"check" : function($location, $rootScope){
+					if (!$rootScope.userId){
+						console.log("no iD");
+						$location.path("/");
+					}
+				}
+			},
 			templateUrl:'/views/dashboard.html',
 			controller : 'dashboardCtrl'
 		})

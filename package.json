@@ -2,7 +2,7 @@
   "name": "emu-attack",
   "version": "1.0.0",
   "description": "",
-  "author": "Adamant Emu",
+  "author": "",
   "contributors": [
     "Spencer Ochs",
     "Albert Tsou",
@@ -17,12 +17,12 @@
     "type": "git",
     "url": "https://github.com/adamantemu/main.git"
   },
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.2",
     "colors": "^1.1.2",
     "express": "^4.13.1",
+    "express-session": "^1.13.0",
     "lodash": "^3.10.0",
     "mongoose": "^4.0.8",
     "morgan": "^1.6.1"
