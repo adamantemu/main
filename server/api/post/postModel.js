@@ -18,8 +18,8 @@ var PostSchema = new Schema({
   },
 
   chose: {
-    type: Boolean,
-    default: false
+    type: String,
+    default: 'pending'
   },
 
   // bids : {

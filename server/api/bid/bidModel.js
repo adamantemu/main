@@ -10,6 +10,11 @@ var BidSchema = new Schema({
     type: String
   },
 
+  chosen: {
+    type: String, // three types: [pending, chosen, notChosen]
+    default: 'pending'
+  },
+
   author: {type: Schema.Types.ObjectId, ref: 'user'},
 
   job: {type: Schema.Types.ObjectId, ref: 'post'}
