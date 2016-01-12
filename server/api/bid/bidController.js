@@ -22,7 +22,7 @@ exports.params = function(req, res, next, id) {
 
 exports.get = function(req, res, next) {
   Bid.find({})
-    .populate('author job') 
+    .populate('author job')
     .exec()
     .then(function(bids){
       res.json(bids);
@@ -40,6 +40,10 @@ exports.put = function(req, res, next) {
   var bid = req.bid;
 
   var update = req.body;
+
+  // if (update.chosen === 'chosen') {
+  //   // update
+  // }
 
   _.merge(bid, update, function(a,b){
     if(_.isArray(a)) {

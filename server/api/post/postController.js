@@ -1,5 +1,5 @@
 var Post = require('./postModel');
-//var Bid = require('./bidModel'); // TODO include bid table 
+var Bid = require('../bid/bidModel'); // TODO include bid table 
 var _ = require('lodash');
 var logger = require('../../util/logger');
 
@@ -40,19 +40,72 @@ exports.put = function(req, res, next) {
 
   var update = req.body;
 
+  //handle additions to bids on a job
   _.merge(post, update, function(a,b){
     if(_.isArray(a)) {
       return a.concat(b);
     }
   });
 
-  post.save(function(err, saved) {
-    if (err) {
-      next(err);
-    } else {
-      res.json(saved);
-    }
-  });
+  // handle updates to all bids if a bid is chosen for a job
+  if (update.chose) {
+    countOfProcessedBids = 0;
+    // go through all bids and update to either chosen|notChosen
+    req.post.bids.forEach(function(bidObj){
+      // asynchronously call each and update the bid
+      Bid.findById(bidObj._id)
+        //.populate('author job')
+        .exec()
+        .then(function(bid) {
+          if (!bid) {
+            next(new Error('No bid with that id'));
+          } else {
+            //logger.log('bid id: ', bid._id, " are equal: ", bid._id == update.chose)
+            if (bid._id == update.chose) {
+              bid.chosen = 'chosen';
+            } else {
+              bid.chosen = 'notChosen';
+            }
+
+            bid.save(function(err, saved) {
+              if (err) {
+                next(err);
+              } else {
+                logger.log(saved.chosen);
+                countOfProcessedBids++;
+
+                if (countOfProcessedBids === req.post.bids.length) {
+                  post.save(function(err, saved) {
+                    if (err) {
+                      next(err);
+                    } else {
+                      res.json(saved);
+                    }
+                  });
+                } 
+                
+              }
+            });
+          }
+        }, function(err) {
+          next(err);
+        });
+    });
+  }
+  // end of updating bids
+
+  // code to check if all promises resulted in updates
+  // function 
+  // if (counter === req.post.bids.length) {
+
+  // }
+  // post.save(function(err, saved) {
+  //   if (err) {
+  //     next(err);
+  //   } else {
+  //     res.json(saved);
+  //   }
+  // });
   // can't mutate bid info since bid only
 };
 

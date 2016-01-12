@@ -85,7 +85,7 @@
   },
 
   "PUT /api/posts/:id": {
-    "desc": "changes a post, specified by its id, and returns the changed post. If the post is changed to chose: True, then update all the bids on the post to reflect which bid was chosen",
+    "desc": "changes a post, specified by its id, and returns the changed post. If the post is changed to chose: bid_id, then update all the bids on the post to reflect which bid was chosen",
     "response" : "200 application/json",
     "data": {}
   },
@@ -107,6 +107,7 @@
   "POST /api/bids/": {
     "desc": "creates and returns a new bid",
     "requires": "author [String user _id], job [String post _id]",
+    "other fields": "price, description",
     "response" : "201 application/json",
     "data": {}
   },
